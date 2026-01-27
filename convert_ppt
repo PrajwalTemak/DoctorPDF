@@ -1,0 +1,18 @@
+import subprocess
+import os
+
+def convert_ppt_to_pdf(input_path, output_folder):
+    try:
+        command = [
+            'libreoffice',
+            '--headless',
+            '--convert-to', 'pdf',
+            '--outdir', output_folder,
+            input_path
+        ]
+        
+        subprocess.run(command, check=True)
+        return True
+    except Exception as e:
+        print(f"PPT Conversion Error: {e}")
+        return False

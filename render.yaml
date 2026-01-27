@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: doctor-pdf-api
+    env: docker
+    plan: free # Note: Docker on Render may require a paid plan; check current tiers.
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 8080
