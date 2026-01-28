@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from convert_pdf_to_image import convert_pdf_to_images
 import os
 import shutil
 
@@ -52,6 +53,27 @@ async def api_office_to_pdf(file: UploadFile = File(...)):
         output_pdf = temp_input.rsplit('.', 1)[0] + ".pdf"
         return FileResponse(output_pdf, media_type="application/pdf")
     raise HTTPException(status_code=500, detail="Office conversion failed")
+
+@app.post("/convert/pdf-to-image")
+async def api_pdf_to_image(file: UploadFile = File(...)):
+    try:
+        # Read the PDF file content
+        content = await file.read()
+        
+        # Convert PDF to a list of image bytes (one for each page)
+        image_list = convert_pdf_to_images(content)
+        
+        if not image_list:
+            raise HTTPException(status_code=400, detail="Could not extract images from PDF")
+
+        # For now, let's return the first page of the PDF as a JPEG
+        output_name = f"page_1_{file.filename.rsplit('.', 1)[0]}.jpg"
+        with open(output_name, "wb") as f:
+            f.write(image_list[0])
+            
+        return FileResponse(output_name, media_type="image/jpeg", filename="converted_page.jpg")
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"PDF to Image Error: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn
