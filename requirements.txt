@@ -4,3 +4,4 @@ python-multipart
 img2pdf
 Pillow
 reportlab
+pdf2image
