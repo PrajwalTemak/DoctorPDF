@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     libreoffice-writer \
     libreoffice-impress \
     libmagic1 \
+    poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
 # Set up your app directory
