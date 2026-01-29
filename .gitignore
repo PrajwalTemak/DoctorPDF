@@ -1,5 +1,19 @@
+# Python environment
 __pycache__/
-*.pdf
-temp_*
-.devcontainer/
 .venv/
+.devcontainer/
+*.py[cod]
+
+# DoctorPDF - Block all temporary output files
+*.pdf
+*.jpg
+*.png
+
+# Block specific temp prefixes used in main.py
+temp_*
+tmp_*
+merge_tmp_*
+split_tmp_*
+split_in_*
+split_out_*
+merged_*
