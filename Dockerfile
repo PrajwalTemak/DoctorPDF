@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
-RUN sudo apt-get install pdftk
+RUN  apt-get install pdftk
 # Set up your app directory
 WORKDIR /app
 COPY . .
